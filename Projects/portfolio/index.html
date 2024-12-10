@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Portfolio de Skilkry, un desarrollador web con experiencia en múltiples tecnologías como HTML, CSS, Javascript, Vue, React, y Python. Buscando nuevas oportunidades." />
+    <meta name="keywords" content="desarrollador web, portfolio, HTML, CSS, Javascript, Vue, React, Python" />
+    <title>Portfolio De Skilkry - Desarrollador Web</title>
+    <link rel="stylesheet" href="./styles/styles.css" />
+  </head>
+  <body>
+      <header>
+        <nav class="nav">
+          <div class="theme-toggle" id="theme-toggle">
+            <object id="sun-icon" type="image/svg+xml" data="./assets/sun-icon.svg"></object>
+            <object id="moon-icon" type="image/svg+xml" data="./assets/moon-icon.svg"></object>
+          </div>          
+          
+          <ul class="nav-list">
+            <li><a href="#sobre-mi">Sobre Mí</a></li>
+            <li><a href="#proyectos">Proyectos</a></li>
+            <li><a href="#tecnologias">Titulaciones</a></li>
+            <li><a href="./registrate.html" target="_blank" rel="noopener noreferrer">Regístrate</a></li>
+          </ul> 
+          <div class="icon-container">
+            <img src="./assets/saturn-icon.svg" id="rr-svg" alt="Saturn Icon" class="icon-img">
+            <div id="card" class="hidden">
+              <div class="card-content">
+                <h2>Mis redes sociales:</h2>
+                <a href="https://instagram.com/skilkry"> <object id="ig-icon" data="./assets/social media icons/instagram.svg" type="image/svg+xml"></object></a>
+                <a href="https://t.me/skilkry"><object id="tl-icon" data="./assets/social media icons/telegram.svg" type="image/svg+xml"></object></a>
+                <a href="https:///tiktok.com/skilkry"><object id="ttk-icon" data="./assets/social media icons/tiktok.svg" type="image/svg+xml"></object></a>
+                <a href=""><object id="gt-icon" data="./assets/social media icons/instagram.svg" type="image/svg+xml"></object></a>
+                <button id="closeCard">Cerrar</button>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
+
+    <main>
+      <!-- Sección Sobre Mí -->
+      <section class="container" id="sobre-mi">
+        <div class="about-me">
+          <!-- Columna de la foto -->
+          <div class="photo-column">
+            <img
+              src="./assets/memoji.png"
+              alt="Memoji de Daniel"
+              class="img-ptf"
+            />
+          </div>
+
+          <!-- Columna de texto (nombre + descripción) -->
+          <div class="text-column">
+            <h1>Hola! Soy Skilkry</h1>
+            <p>
+              Desarrollador Multiplataforma en busca de nuevas oportunidades
+            </p>
+            <p>
+              Apasionado por construir entornos web y aplicaciones con un
+              enfoque en diseño <strong>funcional y eficiente.</strong>
+            </p>
+            <div class="cta-info">
+              <a title="Conoce al creador de esta web" href="./conoceme.html">Conóceme</a>
+              <a title="Descarga y revisa mi cv!" href="./micv.html">Mi CV</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección de Tecnologías -->
+      <section class="container" id="tecnologias">
+        <h2>Mis Conocimientos</h2>
+        <div class="tech-container">
+          <h3>Línea de Aprendizaje</h3>
+          <div class="tech-tree">
+            <span>Smali y XML (Modding)</span>
+            <span>HTML y CSS</span>
+            <span>Javascript, Vue, React</span>
+            <span>Python</span>
+          </div>
+        </div>
+      </section>
+      <!-- Sección de Proyectos -->
+      <section class="container" id="proyectos">
+        <h2>Descubre mis proyectos:</h2>
+        <p>Próximamente</p>
+      </section>
+    </main>
+
+    <footer>
+      <h3>Contacta a Daniel</h3>
+      <a
+        href="https://mail.google.com/mail/?view=cm&to=skilkrymods@gmail.com"
+        target="_blank"
+        >Enviar correo</a
+      >
+      <a href="https://wa.me/+85292402474" target="_blank">WhatsApp</a>
+    </footer>
+
+    <script src="./javascript/index.js"></script>
+  </body>
+</html>
