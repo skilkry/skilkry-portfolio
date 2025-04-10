@@ -1,0 +1,183 @@
+@import './global.css';
+@import './nav.css';
+@import './lightTheme.css';
+
+body{
+    overflow-y: scroll !important;
+}
+
+.projects-container {
+    padding: 2rem;
+    margin-top: 70px;
+}
+
+.projects-title {
+    text-align: center;
+    color: rgb(146, 36, 36);
+    font-family: 'Press Start 2P', sans-serif;
+    margin-bottom: 3rem;
+    font-size: 2rem;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.project-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    height: 550px; /* Altura fija para la tarjeta */
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos para el efecto hover en las tarjetas de proyectos - Versión mejorada */
+.project-image {
+    height: 200px;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    position: relative; /* Añadido para posicionamiento */
+}
+
+.project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.4s ease;
+}
+
+.project-content {
+    padding: 1.5rem;
+    transition: opacity 0.4s ease;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Efecto al hacer hover SOLO en la imagen - Modificado */
+.project-image:hover {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 5;
+}
+
+.project-image:hover ~ .project-content,
+.project-image:hover + .project-content {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Overlay para mejorar visibilidad */
+.project-image:hover::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 6;
+}
+
+/* Resto de estilos modificados para aplicar solo al hover de la imagen */
+.project-image:hover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Opcional: añadir un overlay oscuro para mejorar la visibilidad */
+.project-image::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.project-image:hover::after {
+    opacity: 1;
+}
+
+.project-content {
+    padding: 1.5rem;
+}
+
+.project-content h3 {
+    color: white;
+    font-family: 'Press Start 2P', sans-serif;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.project-content p {
+    color: #ccc;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.project-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+}
+
+.project-tags span {
+    background: var(--accent-color-light);
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+}
+
+.project-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.project-links a {
+    padding: 0.8rem 1.2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-family: 'Press Start 2P', sans-serif;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+}
+
+.demo-link {
+    background: var(--accent-color-light);
+    color: white;
+}
+
+.code-link {
+    border: 2px solid var(--accent-color-light);
+    color: white;
+}
+
+.project-links a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(229, 105, 151, 0.2);
+}
+
+.project-image{
+object-fit: cover;
+}
+

@@ -1,0 +1,187 @@
+@import './lightTheme.css';
+
+.background-system {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: linear-gradient(180deg, 
+        #1a0f2e 0%,
+        #2d1b4e 35%,
+        #371C69 100%
+    );
+    overflow: hidden;
+}
+
+.grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(90deg, rgba(147, 51, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(rgba(147, 51, 255, 0.1) 1px, transparent 1px);
+    background-size: 40px 40px;
+    perspective: 1000px;
+    transform-origin: center;
+    transform: rotateX(60deg);
+    animation: gridMove 20s linear infinite;
+}
+
+.vignette {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, 
+        transparent 0%, 
+        rgba(26, 15, 46, 0.4) 60%, 
+        rgba(26, 15, 46, 0.8) 100%
+    );
+}
+
+.glow-points {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 30% 30%, rgba(147, 51, 255, 0.4) 0%, transparent 20%),
+        radial-gradient(circle at 70% 60%, rgba(255, 0, 255, 0.4) 0%, transparent 20%),
+        radial-gradient(circle at 40% 80%, rgba(0, 225, 255, 0.4) 0%, transparent 20%),
+        radial-gradient(circle at 80% 20%, rgba(147, 51, 255, 0.4) 0%, transparent 20%);
+    filter: blur(20px);
+}
+
+.scan-lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(147, 51, 255, 0.05) 0px,
+        rgba(147, 51, 255, 0.05) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+    pointer-events: none;
+}
+
+.cyber-text {
+    position: fixed;
+    font-family: 'Press Start 2P', sans-serif;
+    color: rgba(147, 51, 255, 0.4);
+    white-space: nowrap;
+    pointer-events: none;
+    text-transform: uppercase;
+    z-index: 1;
+    left: 50%;
+    top: 38%;
+    font-size: 3.8em;
+    transform: translate(-50%, -50%);
+    animation: glitchText 4s infinite;
+    opacity: 0.6;
+}
+
+.cyber-text-2 {
+    position: fixed;
+    font-family: 'Press Start 2P', sans-serif;
+    color: rgba(147, 51, 255, 0.4);
+    white-space: nowrap;
+    pointer-events: none;
+    text-transform: uppercase;
+    z-index: 1;
+    left: 50%;
+    top: 55%;
+    font-size: 3.8em;
+    transform: translate(-50%, -50%);
+    animation: glitchText 4s infinite;
+}
+
+.cyber-text:first-child {
+    top: 35%;  /* Ajustado de 45% a 35% */
+    font-size: 120px;
+}
+
+.cyber-text:nth-child(2) {
+    top: 50%;  /* Ajustado de 60% a 50% */
+    font-size: 30px;
+    letter-spacing: 2px;
+}
+
+.background-system {
+    transition: background-position 0.1s ease-out;
+}
+
+body:hover .background-system {
+    background-position: center 10px;
+}
+
+.cyber-text, .cyber-text-2 {
+    text-shadow: 0 0 10px rgba(147, 51, 255, 0.8), 
+                 0 0 20px rgba(147, 51, 255, 0.6), 
+                 0 0 30px rgba(147, 51, 255, 0.4);
+}
+
+
+@keyframes bgPulse {
+    0% { background-position: center 0px; }
+    50% { background-position: center 5px; }
+    100% { background-position: center 0px; }
+}
+
+.background-system {
+    animation: bgPulse 5s infinite alternate ease-in-out;
+}
+
+
+@keyframes glitchText {
+    0% {
+        text-shadow: 2px 0 #ff00ff, -2px 0 #00ffff;
+        opacity: 0.4;  /* Aumentada la opacidad */
+    }
+    20% {
+        text-shadow: -2px 0 #ff00ff, 2px 0 #00ffff;
+        opacity: 0.5;  /* Aumentada la opacidad */
+    }
+    40% {
+        text-shadow: 2px 0 #ff00ff, -2px 0 #00ffff;
+        opacity: 0.4;  /* Aumentada la opacidad */
+    }
+    60% {
+        text-shadow: -2px 0 #ff00ff, 2px 0 #00ffff;
+        opacity: 0.5;  /* Aumentada la opacidad */
+    }
+    100% {
+        text-shadow: 2px 0 #ff00ff, -2px 0 #00ffff;
+        opacity: 0.4;  /* Aumentada la opacidad */
+    }
+}
+
+@keyframes gridMove {
+    0% {
+        transform: rotateX(60deg) translateY(0);
+    }
+    50% {
+        transform: rotateX(60deg) translateY(20px);
+    }
+    100% {
+        transform: rotateX(60deg) translateY(0);
+    }
+}
+
+@keyframes scanMove {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 100px; }
+}
+
+.scan-lines {
+    animation: scanMove 8s linear infinite;
+}
