@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+.menu-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    gap: 20px;
+}
+
+a {
+    width: 100%;
+    text-decoration: none;
+}
+
+.menu-button {
+    width: 100%;
+    min-width: 250px;
+    padding: 1.2rem;
+    margin: 0;
+    font-family: 'Press Start 2P', sans-serif;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: white;
+    background: rgba(26, 15, 46, 0.7);
+    border: 1px solid rgba(147, 51, 255, 0.3);
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    animation: appear 0.5s ease-out forwards;
+    opacity: 0;
+    backdrop-filter: blur(5px);
+}
+
+.menu-button i {
+    font-size: 1.2em;
+    transition: transform 0.3s ease;
+}
+
+.menu-button:hover {
+    transform: translateY(-5px);
+}
+
+.menu-button:hover i {
+    transform: scale(1.2);
+}
+
+.menu-button:active {
+    transform: scale(0.95);
+}
+
+/* Estilos específicos para cada botón */
+.menu-button.about {
+    background: linear-gradient(135deg, 
+        rgba(25, 35, 60, 0.9),
+        rgba(35, 160, 190, 0.3),
+        rgba(25, 35, 60, 0.9)
+    );
+    border: 1px solid #23A0BE;
+}
+
+.menu-button.projects {
+    background: linear-gradient(135deg, 
+        rgba(84, 40, 127, 0.9),
+        rgba(163, 52, 183, 0.3),
+        rgba(84, 40, 127, 0.9)
+    );
+    border: 1px solid #A334B7;
+}
+
+.menu-button.more {
+    background: linear-gradient(135deg, 
+        rgba(155, 76, 154, 0.9),
+        rgba(155, 76, 154, 0.3),
+        rgba(155, 76, 154, 0.9)
+    );
+    border: 1px solid #9B4C9A;
+}
+
+.menu-button.extra {
+    background: linear-gradient(135deg, 
+        rgba(45, 27, 90, 0.9),
+        rgba(81, 51, 171, 0.3),
+        rgba(45, 27, 90, 0.9)
+    );
+    border: 1px solid #5133AB;
+}
+
+/* Efectos hover */
+.menu-button.about:hover {
+    box-shadow: 0 0 30px rgba(35, 160, 190, 0.4);
+    border-color: #4DA8C3;
+}
+
+.menu-button.projects:hover {
+    box-shadow: 0 0 30px rgba(163, 52, 183, 0.4);
+    border-color: #A334B7;
+}
+
+.menu-button.more:hover {
+    box-shadow: 0 0 30px rgba(155, 76, 154, 0.4);
+    border-color: #9B4C9A;
+}
+
+.menu-button.extra:hover {
+    box-shadow: 0 0 30px rgba(81, 51, 171, 0.4);
+    border-color: #6B45E7;
+}
+
+@keyframes appear {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
