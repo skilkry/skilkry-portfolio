@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skilkry - Portfolio Interactivo</title>
+    <link rel="stylesheet" href="./assets/css/aboutMe.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="canvas-container"></div>
+<div id="hero-title">
+  <h1>Bienvenido a 'Sobre mí'</h1>
+</div>
+
+<div id="scroll-hint">
+  <span>Desliza para comenzar</span>
+  <div class="arrow-down">
+    <svg width="40" height="40" viewBox="0 0 24 24" stroke="#00c6ff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="12" y1="5" x2="12" y2="19"></line>
+      <polyline points="19 12 12 19 5 12"></polyline>
+    </svg>
+  </div>
+</div>
+    <section class="hero-section"></section>
+    <section id="contenido-scroll">
+        <div id="info-panel">
+            <h2 id="info-title">
+                <img id="info-icon" src="" alt=""/>
+                <span>Mis Habilidades</span>
+            </h2>
+            <p id="info-description">
+                Haz scroll para ver mis habilidades en perspectiva. Después, pasa el ratón sobre una de ellas para ver la descripción.
+            </p>
+        </div>
+    </section>
+
+    <script type="importmap">{ "imports": { "three": "https://unpkg.com/three@0.158.0/build/three.module.js" } }</script>
+    <script src="https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://unpkg.com/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    
+    <script type="module">
+        import * as THREE from 'three';
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const container = document.getElementById('canvas-container');
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        container.appendChild(renderer.domElement);
+        scene.add(new THREE.AmbientLight(0xffffff, 0.8));
+        const dirLight = new THREE.DirectionalLight(0xffffff, 1.5);
+        dirLight.position.set(8, 10, 8);
+        scene.add(dirLight);
+        camera.position.z = 8;
+        const techData = [
+            { name: 'React', id: 'react', description: 'Experiencia creando interfaces dinámicas y complejas con React, usando Hooks, Context API y librerías del ecosistema como React Router.' },
+            { name: 'JavaScript', id: 'js', description: 'Sólida base en JavaScript moderno (ES6+), incluyendo asincronía, manipulación del DOM y estructuras de datos. Es el pilar de todo mi trabajo.' },
+
+        ];
+        const allTechs = ['React','JavaScript', 'TypeScript', 'Node.js', 'Python', 'HTML5', 'CSS3', 'Sass', 'Git', 'Docker'];
+        allTechs.forEach(name => {
+            if (!techData.find(t => t.name === name)) {
+                const id = name.toLowerCase().replace(/[\.53]/g, '').replace(' ', '-');
+                techData.push({ name, id, description: `Descripción para ${name} pendiente de añadir.` });
+            }
+        });
+    const keyboardLayout = [
+    ['React', 'JavaScript', 'Python'],
+    ['HTML5', 'CSS3', 'Sass'],
+    ['Git']
+];
+        const textureLoader = new THREE.TextureLoader();
+        const keyboardGroup = new THREE.Group();
+        const keys = [];
+        const keySize = 1.2, keySpacing = 0.3;
+        const keyboardWidth = keyboardLayout[0].length * (keySize + keySpacing) - keySpacing;
+        const keyboardHeight = keyboardLayout.length * (keySize + keySpacing) - keySpacing;
+        keyboardLayout.forEach((row, rowIndex) => {
+            row.forEach((techName, colIndex) => {
+                const techInfo = techData.find(t => t.name === techName);
+                if (!techInfo) return;
+                const geometry = new THREE.BoxGeometry(keySize, keySize, keySize);
+                const texture = textureLoader.load(`icons/${techInfo.id}.svg`);
+                const material = new THREE.MeshStandardMaterial({ map: texture, color: 0xffffff, roughness: 0.6, metalness: 0.2 });
+                const key = new THREE.Mesh(geometry, material);
+                key.position.set(colIndex * (keySize + keySpacing), -rowIndex * (keySize + keySpacing), 0);
+                key.userData = techInfo;
+                keyboardGroup.add(key);
+                keys.push(key);
+            });
+        });
+        keyboardGroup.position.set(-keyboardWidth / 2 + (keySize/2), keyboardHeight / 2 - (keySize/2), 0);
+        scene.add(keyboardGroup);
+        gsap.registerPlugin(ScrollTrigger);
+
+        const infoPanel = document.getElementById('info-panel');
+        const infoTitle = document.getElementById('info-title').querySelector('span');
+        const infoIcon = document.getElementById('info-icon');
+        const infoDescription = document.getElementById('info-description');
+        gsap.timeline({
+            scrollTrigger: {
+                trigger: "#contenido-scroll",
+                start: "top bottom",
+                end: "center center", 
+                scrub: 1, 
+            }
+        })
+        .to(camera.position, { z: 10, ease: 'power1.in' }) 
+        .to(keyboardGroup.rotation, { 
+            x: -0.9,
+            y: -0.4, 
+            z: -0.2,
+            ease: 'power1.in' 
+        }, "<")
+        .to(keyboardGroup.position, { 
+            x: keyboardGroup.position.x,
+            y: keyboardGroup.position.y + 1,
+            z: -2,
+            ease: 'power1.in' 
+        }, "<")
+        .to(infoPanel, { opacity: 1 }, "-=0.5");
+
+
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2(-100, -100);
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+        });
+
+        let lastHoveredKey = null;
+        function animate() {
+            requestAnimationFrame(animate);
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObjects(keys);
+            
+            if (intersects.length > 0) {
+                const hoveredKey = intersects[0].object;
+                if(lastHoveredKey !== hoveredKey){
+                    const skill = hoveredKey.userData;
+                    infoTitle.textContent = skill.name;
+                    infoIcon.src = `icons/${skill.id}.svg`;
+                    infoDescription.textContent = skill.description;
+                    
+                    gsap.to(hoveredKey.scale, { x: 1.1, y: 1.1, z: 1.1, duration: 0.3, ease: 'power2.out'});
+                    
+                    if(lastHoveredKey) {
+                        gsap.to(lastHoveredKey.scale, { x: 1, y: 1, z: 1, duration: 0.3, ease: 'power2.out'});
+                    }
+                    lastHoveredKey = hoveredKey;
+                }
+            } else {
+                if(lastHoveredKey){
+                    gsap.to(lastHoveredKey.scale, { x: 1, y: 1, z: 1, duration: 0.3, ease: 'power2.out'});
+                    lastHoveredKey = null;
+
+                    infoTitle.textContent = 'Mis Habilidades';
+                    infoIcon.src = '';
+                    infoDescription.textContent = 'Pasa el ratón sobre una habilidad para ver la descripción.';
+                }
+            }
+            renderer.render(scene, camera);
+        }
+        animate();
+        
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+        gsap.to("#scroll-hint", {
+    opacity: 0,
+    duration: 0.5,
+    ease: "power1.out",
+    scrollTrigger: {
+        trigger: "#contenido-scroll",
+        start: "top bottom",
+        toggleActions: "play none none reverse"
+    }
+});
+
+gsap.to("#scroll-hint", {
+  opacity: 0,
+  y: 20,
+  duration: 0.5,
+  ease: "power1.out",
+  scrollTrigger: {
+    trigger: "#contenido-scroll",
+    start: "top bottom",
+    toggleActions: "play none none reverse"
+  }
+});
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,200 @@
+/* ==========================================================================
+   MENÚ DE CONFIGURACIÓN - REFACTORIZADO Y MEJORADO
+   ========================================================================== */
+
+/* --- Contenedor Principal y Botón de Engranaje --- */
+.config-menu-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.config-button {
+    width: 45px; /* Un poco más pequeño para ser más sutil */
+    height: 45px;
+    border-radius: 50%;
+    background: rgba(16, 10, 28, 0.8);
+    border: 2px solid var(--terminal-border-inner, rgba(93, 139, 196, 0.6));
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.4s ease, border-color 0.4s, box-shadow 0.4s;
+    box-shadow: 0 0 15px rgba(147, 51, 255, 0.3);
+    backdrop-filter: blur(5px);
+}
+
+.config-button:hover {
+    transform: rotate(90deg);
+    border-color: var(--accent-color, #9333ff);
+    box-shadow: 0 0 20px var(--accent-color, #9333ff);
+}
+
+/* --- Panel del Menú Principal --- */
+.config-menu {
+    position: absolute;
+    top: 60px; /* Espacio desde el botón */
+    right: 0;
+    width: 290px; /* Más ancho para el nuevo contenido */
+    background: rgba(16, 10, 28, 0.9);
+    border: 2px solid rgba(147, 51, 255, 0.5);
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    
+    /* Animación de entrada/salida */
+    transform: translateY(-10px) scale(0.95);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.config-menu.active {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    visibility: visible;
+}
+
+/* --- Encabezado del Menú --- */
+.config-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 0.8rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgba(147, 51, 255, 0.3);
+}
+
+.config-menu-header h3 {
+    color: white;
+    font-size: 0.8rem;
+    margin: 0;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 0; /* Asegurar que no tenga padding extra */
+    transition: color 0.3s, transform 0.3s;
+}
+
+.close-button:hover {
+    color: white;
+    transform: rotate(90deg);
+}
+
+/* --- Cuerpo y Secciones del Menú --- */
+.config-menu-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem; /* Espacio entre secciones */
+}
+
+.section-title {
+    color: var(--accent-color, #9333ff);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    padding-left: 1.2rem;
+    position: relative;
+}
+
+.section-title::before {
+    content: '>';
+    position: absolute;
+    left: 0;
+    opacity: 0.8;
+}
+
+/* --- Items de Configuración (con controles) --- */
+.config-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.2rem;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Estilos unificados para Selectores y Botones Toggle */
+.config-select,
+.toggle-button {
+    font-family: 'Press Start 2P', sans-serif;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(147, 51, 255, 0.5);
+    color: white;
+    border-radius: 4px;
+    padding: 0.4rem;
+    cursor: pointer;
+    font-size: 0.7rem;
+    text-align: center;
+}
+
+.config-select {
+    min-width: 120px;
+}
+
+.toggle-button {
+    padding: 0.4rem 0.8rem;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.toggle-button:hover {
+    background-color: var(--accent-color, #9333ff);
+    border-color: var(--accent-color, #9333ff);
+}
+
+/* Estado 'ON' para los interruptores de accesibilidad */
+.toggle-button[aria-checked="true"] {
+    background-color: #00ff9c;
+    border-color: #00ff9c;
+    color: #000;
+    font-weight: bold;
+}
+
+/* --- Items de Enlaces (GitHub, LinkedIn, CV) --- */
+.config-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem;
+    border-radius: 6px;
+    color: white;
+    text-decoration: none;
+    transition: transform 0.2s ease-out, background-color 0.2s, border-color 0.2s, color 0.2s;
+    background: rgba(147, 51, 255, 0.05);
+    border: 1px solid transparent;
+    margin-bottom: 0.5rem;
+}
+
+.config-link:hover {
+    background: rgba(147, 51, 255, 0.15);
+    border-color: rgba(147, 51, 255, 0.4);
+    transform: translateX(4px);
+    color: #e08aff; /* Usamos un color de tu cabecera para la cohesión */
+}
+
+.config-link i {
+    font-size: 1.1rem;
+    width: 20px; /* Ancho fijo para alinear los textos */
+    text-align: center;
+    color: rgba(147, 51, 255, 0.8);
+    transition: color 0.3s;
+}
+
+.config-link:hover i {
+    color: #e08aff;
+}
+
+.config-link span {
+    font-size: 0.8rem;
+}
